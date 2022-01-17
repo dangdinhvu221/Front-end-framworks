@@ -21,6 +21,14 @@ body {
   text-decoration: none;
 }
 
+button.navbar-toggler {
+  background-color: rgb(255 255 255 / 50%);
+}
+
+button.navbar-toggler:hover{
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
 .logo>img {
   width: 180px;
 }
@@ -127,14 +135,14 @@ section#intro {
 
 #intro .icon-cat {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: flex-start;
 }
 
-#intro .icon-cat img {
+/* #intro .icon-cat img {
   width: 30%;
   height: 40%;
-}
+} */
 
 #intro .carousel-caption {
   text-align: center;
