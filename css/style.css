@@ -140,8 +140,8 @@ section#intro {
 }
 
 /* #intro .icon-cat img {
-  width: 30%;
-  height: 40%;
+  width: 50%;
+  height: 50%;
 } */
 
 #intro .carousel-caption {
@@ -155,11 +155,20 @@ section#intro {
   font-weight: 700;
 }
 
-#intro #register>.container, #intro .informationExam, #intro .listQuestion{
+ #intro .informationExam, #intro .listQuestion{
   background-color: #fff;
   padding: 10px;
   border-radius: 20px;
   margin: 80px 100px;
+}
+
+#intro #register>.container{
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 20px;
+  margin-top: 100px;
+  margin-bottom: 50px;
+  margin-left: 60px;
 }
 
 #intro .about-page {
