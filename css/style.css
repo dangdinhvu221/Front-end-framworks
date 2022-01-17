@@ -25,7 +25,7 @@ button.navbar-toggler {
   background-color: rgb(255 255 255 / 50%);
 }
 
-button.navbar-toggler:hover{
+button.navbar-toggler:hover {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -155,20 +155,21 @@ section#intro {
   font-weight: 700;
 }
 
- #intro .informationExam, #intro .listQuestion{
+#intro .informationExam,
+#intro .listQuestion {
   background-color: #fff;
   padding: 10px;
   border-radius: 20px;
   margin: 80px 100px;
 }
 
-#intro #register>.container{
+#intro #register>.container {
   background-color: #fff;
   padding: 10px;
   border-radius: 20px;
   margin-top: 100px;
   margin-bottom: 50px;
-  margin-left: 60px;
+  /* margin-left: 90px; */
 }
 
 #intro .about-page {
@@ -189,31 +190,47 @@ div#collapsibleNavId {
   display: inline-block;
 }
 
-#intro .card-exam, #intro .aside-card-exam {
+#intro .card-exam,
+#intro .aside-card-exam {
   border-radius: 20px;
   box-shadow: 0 0 20px #0413b8;
 }
-#intro .card, #intro .card > img, #intro .list-exam{
+
+#intro .card,
+#intro .card>img,
+#intro .list-exam {
   border-radius: 20px;
 }
 
-#intro .card-exam:hover, #intro .aside-card-exam:hover{
+#intro .card-exam:hover,
+#intro .aside-card-exam:hover {
   box-shadow: 0 0 20px rgb(255, 166, 0);
   transition: 0.6s;
 }
 
-#intro .list-exam{
+#intro .list-exam {
   margin-top: 100px;
   margin-bottom: 50px;
   float: left;
 }
-#intro .list-danhmuc{
+
+#intro .list-danhmuc {
   margin-top: 100px;
   float: right;
 }
-#intro .row{
+
+#intro .row {
   margin: 0px;
 }
+
+/* @media (min-width: 576px) {
+  .container,
+  .container-sm {
+    max-width: 540px;
+    margin-right: 12px;
+  }
+} */
+
 /* 
 
 #intro .carousel-fade .carousel-inner .carousel-item {
@@ -514,7 +531,8 @@ div#collapsibleNavId {
   padding-bottom: 12px;
 }
 
-#footer .footer-top h4::before, #footer .footer-top h4::after {
+#footer .footer-top h4::before,
+#footer .footer-top h4::after {
   content: '';
   position: absolute;
   left: 0;
