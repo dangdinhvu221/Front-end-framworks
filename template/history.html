@@ -1,0 +1,32 @@
+<div ng-controller="historyCtrl">
+  <!----------------------------------------  main-------------------------------------- -->
+  <main id="main">
+    <section id="intro">
+      <div class="about-page">
+        <div class="row">
+          <div class="container bg-white rounded shadow mt-5 p-4 text-center">
+            <h1>Lịch sử kiểm tra</h1>
+            <div class="row">
+              <table class="table table-striped table-bordered table-hover table-primary">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Môn học</th>
+                    <th>Điểm</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="st in historys">
+                    <td>{{st.idExam}}</td>
+                    <td>{{st.nameExam}}</td>
+                    <td>{{st.mark}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>

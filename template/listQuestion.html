@@ -1,289 +1,223 @@
-<!DOCTYPE html>
-<html lang="en">
+<div ng-controller="listQuestionCtrl">
+  <!----------------------------------------  main-------------------------------------- -->
+  <main id="main">
+    <section id="intro">
+      <div class="listQuestion">
+        <div class="row">
+          <section class="wrap-form-head-register container-about col">
+            <h2 class="h1-responsive fw-blod text-center text-warning">
+              Trang thi trắc nghiệm
+            </h2>
+            <div class="row">
+              <div class="col-10">
+                <img src="https://img.icons8.com/office/80/000000/time.png" />
+                <span>Thời gian: {{(timer-timer%60)/60}}:{{timer%60}}</span>
+              </div>
+              <div class="col-lg-2 col-12 mt-3">
+                <h3 class="float-end">
+                  Điểm: <span class="text-danger">{{testMark}}</span>
+                </h3>
+              </div>
+            </div>
+            <hr class="mt-3 mb-3" />
+            <div class="row">
+              <div class="col-lg-3">
+                <h4>Thời gian làm bài</h4>
+              </div>
+              <div class="col-lg-9">
+                <div class="card">
+                  <div class="card-header">
+                    <h2 class="text-center my-2 ml-4 text-dark">
+                      Bài Thi: {{subject.Name}}
+                    </h2>
+                  </div>
+                  <div class="body my-3">
+                    <div class="row">
+                      <div class="col-12 col-lg-4 text-center">
+                        <img
+                          class="img-responsive img-fluid"
+                          src="../img/logos/{{subject.Logo}}"
+                          alt=""
+                        />
+                      </div>
+                      <div class="col-xxl-8 col-12">
+                        <h4 class="lead">
+                          Câu hỏi:
+                          <span class="text-danger font-weight-bold"
+                            >{{indexQuestion + 1 + '. '
+                            +questions[indexQuestion].Text}}</span
+                          >
+                        </h4>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="../fonts/themify-icons/themify-icons.css">
-    <link rel="shortcut icon" type="image/png" href="../img/imagePic/coding2.gif" />
-    <title>Poly Learn</title>
-
-</head>
-
-<body>
-    <!---------------------------------------- header -------------------------------------- -->
-    <header id="header">
-        <nav class="row navbar navbar-expand-md navbar-light" id="logo">
-            <div class="col-lg-4">
-                <div class="row">
-                    <div class="col-10">
-                        <a class="navbar-brand logo" href="../template/index.html">
-                            <img src="../img/logos/LogoNew.png" alt="">
-                        </a>
+                        <hr class="mt-3" />
+                        <form
+                          name="formTest"
+                          class="{{(element[indexQuestion].sub ==0) ? 'disabled' : '' }}"
+                        >
+                          <fieldset
+                            ng-repeat="question in questions[indexQuestion].Answers"
+                            class="form-check"
+                          >
+                            <input
+                              ng-model="element[indexQuestion].answer"
+                              class="form-check-input"
+                              id="{{'question' + $index}}"
+                              value="{{question.Id}}"
+                              type="radio"
+                              name="inputQ"
+                              required
+                            />
+                            <label
+                              class="form-check-label font-weight-bold"
+                              style="
+                                font-family: 'Times New Roman', Times, serif;
+                              "
+                              for="{{'question'+$index}}"
+                              >{{question.Text}}
+                              </label
+                            >
+                          </fieldset>
+                        </form>
+                      </div>
                     </div>
-                    <span class="mt-2 col-2">
-                        <button class="navbar-toggler" type="button" data-toggle="collapse"
-                            data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
-                            aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                    </span>
+                  </div>
+                  <div class="card-footer">
+                    {{indexQuestion+1}} / 10
+                  </div>
                 </div>
-            </div>
-            <div class=" col-lg-7 collapse navbar-collapse" id="collapsibleNavId"
-                style="background-color: rgba(0, 0, 0, 0.5);">
-                <ul class=" nav-menu navbar-nav mr-auto mt-lg-2 ">
-                    <li class="nav-item">
-                        <a class="nav-link " href="../template/index.html">Home<i class="bi bi-house-door"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link " href="../template/learning.html">Learning<i
-                                class="bi bi-file-medical"></i></a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="../template/about.html">About Page<i
-                                class="bi bi-patch-question"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../template/feedback.html">Feedback<i class="bi bi-chat-dots"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../template/list-exam.html">List Exam<i
-                                class="bi bi-journal-medical"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#footer">Contact <i class="bi bi-headset"></i></a>
-                    </li>
-
-                </ul>
-                <div class="col-lg-2">
-                    <ul class="nav-menu navbar-nav mr-auto mt-lg-0 ">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">Account<i
-                                    class="bi bi-person icon-account"></i></a>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownId">
-                                <li class="dropdown-item"><a href="#">Sig in</a></li>
-                                <li class="dropdown-item"><a href="#">Sig up</a></li>
-                                <div class="dropdown-divider"></div>
-                                <li class="dropdown-item"><a href="#">Change Password</a></li>
-                                <li class="dropdown-item"><a href="../template/index.html">Log out</a></li>
-                            </ul>
+                <div class="row mt-3">
+                  <div class="col-12">
+                    <nav aria-label="...">
+                      <ul class="pagination justify-content-center">
+                        <li
+                          ng-click="move(0)"
+                          class="page-item {{(indexQuestion+1 == 1)?'disabled':''}}"
+                        >
+                          <a href class="page-link">First</a>
                         </li>
-                    </ul>
+                        <li
+                          class="page-item
+                           {{indexQuestion + 1 == 1 ? 'disabled' : ''}}"
+                        >
+                          <a
+                            href
+                            ng-click="move(indexQuestion-1)"
+                            class="page-link"
+                            aria-label="Previous"
+                          >
+                            <span aria-hidden="true">&laquo;</span>
+                            <!-- <span class="sr-only">Previous</span> -->
+                          </a>
+                        </li>
+                        <li
+                          class="page-item {{(indexQuestion+1 == questions.length)?'disabled':''}}"
+                        >
+                          <button
+                            ng-click="move(indexQuestion+1)"
+                            class="page-link"
+                            aria-label="Next"
+                          >
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                          </button>
+                        </li>
+                        <li
+                          ng-click="move(9)"
+                          class="page-item {{(indexQuestion+1 == questions.length)?'disabled':''}}"
+                        >
+                          <a href class="page-link">Last</a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
                 </div>
+              </div>
             </div>
-        </nav>
-    </header>
-    <!----------------------------------------  Intro Section -------------------------------------- -->
 
-    <!----------------------------------------  main-------------------------------------- -->
-    <main id="main">
-        <section id="intro">
-            <div class="listQuestion">
-                <div class="row">
-                    <section class="wrap-form-head-register container-about col">
-                        <h2 class="h1-responsive fw-blod text-center text-warning">Trang thi trắc nghiệm</h2>
-                        <div class="row">
-                            <div class="col-10">
-                                <img src="https://img.icons8.com/office/80/000000/time.png" />
-                                Thời gian
-                            </div>
-                            <div class="col-lg-2 col-12 mt-3">
-                                <h3 class="float-end">Điểm:</h3>
-                            </div>
-                        </div>
-                        <hr class="mt-3 mb-3">
-                        <div class="row">
-                            <div class="col-lg-3">
-                                <h4>Thời gian làm bài</h4>
-                            </div>
-                            <div class="col-lg-9">
-                                <div class="card ">
-                                    <div class="card-header">
-                                        <h2 class="text-center my-2 ml-4 text-dark">Bài Thi: Lập trình nâng cao</h2>
-                                    </div>
-                                    <div class="body my-3">
-                                        <div class="row">
-                                            <div class="col-12 col-lg-4 text-center">
-                                                <img class="img-responsive img-fluid" src="../img/logos/WEBU.jpg"
-                                                    alt="">
-                                            </div>
-                                            <div class="col-xxl-8 col-12">
-                                                <h4 class="lead">Câu hỏi:</h4>
-                                                <p>1. Trong kỹ thuật chỉnh nâng cao có những ký thuật nào ?</p>
-                                                <hr class="mt-3">
-                                                <ul class="list-group my-3">
-                                                    <li class="list-group-item "><input type="radio" name="c1">Đối xứng
-                                                    </li>
-                                                    <li class="list-group-item "><input type="radio" name="c1">Bẻ văn
-                                                        bản</li>
-                                                    <li class="list-group-item "><input type="radio" name="c1">Khôi văn
-                                                        bản</li>
-                                                    <li class="list-group-item "><input type="radio" name="c1">Khối đối
-                                                        sứng</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer badge">
-                                        Số câu: 0 / 40
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            <div class="row mt-4">
+              <div class="col-12 d-flex justify-content-end">
+                <button
+                  class="btn btn-primary float-end"
+                  ng-disabled="element[indexQuestion].sub == 0 || formTest.inputQ.$invalid"
+                  type="button"
+                  data-toggle="modal"
+                  data-target="#staticBackdrop"
+                >
+                  Trả lời
+                </button>
+              </div>
 
-                        <div class="row mt-4">
-                            <div class="col-12 d-flex justify-content-end">
-                                <button class="btn btn-primary ">Trả lời</button>
-                            </div>
+              <!-- Modal-TL -->
+              <div
+                class="modal fade"
+                id="staticBackdrop"
+                data-backdrop="static"
+                data-keyboard="false"
+                tabindex="-1"
+                aria-labelledby="staticBackdropLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header rounded mx-auto d-block">
+                      <img src="../img/logos/hoi-cham.gif" alt="" class="d-block w-100"/>
+                    </div>
+                    <div class="modal-body">
+                      <div class="h3 text-center mb-1">
+                        Bạn chắc vơi đáp án này không ?
+                      </div>
+                      <div class="row p-0">
+                        <div class="col-lg-6">
+                          <button
+                            type="button"
+                            class="btn btn-danger col-lg-10"
+                            data-dismiss="modal"
+                          >
+                            <img
+                              src="https://img.icons8.com/color/32/000000/cancel--v1.png"
+                            />
+                            Không
+                          </button>
                         </div>
-
-                        <div class="row">
-                            <div class="col-12 mt-3">
-                                <nav aria-label="...">
-                                    <ul class="pagination justify-content-center">
-                                        <li class="page-item disabled">
-                                            <a class="page-link"><i class="ti-angle-double-left"></i></a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item active" aria-current="page">
-                                            <a class="page-link" href="#">2</a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">...</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#"><i class="ti-angle-double-right"></i></a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
+                        <div class="col-lg-6 d-flex justify-content-end">
+                          <button
+                            ng-click="mark(); element[indexQuestion].sub = 0"
+                            class="btn btn-success col-lg-10"
+                            data-dismiss="modal"
+                          >
+                            <img
+                              src="https://img.icons8.com/fluency/32/000000/checkmark.png"
+                            />
+                            Có
+                          </button>
                         </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-                        <div class="row">
-                            <!-- <div class="col-12">
+            <div class="row">
+              <!-- <div class="col-12">
                                 <button class="btn btn-danger float-start">
                                     Kết thúc bài kiểm tra
                                 </button>
                             </div> -->
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-danger btn-lg" data-toggle="modal"
-                                data-target="#modelId">
-                                Kết thúc bài kiểm tra
-                            </button>
-
-                            <!-- Modal -->
-                            <div class="modal fade" id="modelId" tabindex="-1" role="dialog"
-                                aria-labelledby="modelTitleId" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Kết thúc bài thi</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="form-check">
-                                                <label class="form-check-label">
-                                                    <input type="checkbox" class="form-check-input" name="" id=""
-                                                        value="checkedValue">
-                                                    Bạn đồng ý muốn kết thúc bài thi chứ??
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Close</button>
-                                            <a href="../template/list-exam.html" type="button"
-                                                class="btn btn-primary">Save</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </div>
+              <!-- Button trigger modal -->
+              <button
+                type="button"
+                class="btn btn-danger btn-lg"
+                data-toggle="modal"
+                data-target="#modelId"
+                ng-click = "finish()"
+              >
+                Kết thúc bài kiểm tra
+              </button>
             </div>
-        </section>
-    </main>
-    <footer id="footer">
-        <div class="footer-top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-5 col-md-6 footer-info">
-                        <div class="row">
-                            <div class="my-2 col-12">
-                                <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.863855881452!2d105.74459841529051!3d21.038132792833423!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313454b991d80fd5%3A0x53cefc99d6b0bf6f!2zVHLGsOG7nW5nIENhbyDEkeG6s25nIEZQVCBQb2x5dGVjaG5pYw!5e0!3m2!1svi!2s!4v1642132421933!5m2!1svi!2s"
-                                    style="border:0;" allowfullscreen="" loading="lazy" class="col"></iframe>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="col-lg-3 col-md-6 footer-contact">
-                        <div class="information">
-                            <h4 class="mt-3 mb-3">Address</h4>
-                            <p>
-                                Tòa nhà FPT Polytechnic, P. Trịnh Văn Bô, Xuân Phương, Nam Từ Liêm, Hà Nội
-                            </p>
-                        </div>
-                        <div class="social-links">
-                            <a href="#" class="twitter"><i class="ti-twitter-alt"></i></a>
-                            <a href="#" class="facebook"><i class="ti-facebook"></i></a>
-                            <a href="#" class="instagram"><i class="ti-instagram"></i></a>
-                            <a href="#" class="google-plus"><i class="ti-google"></i></a>
-                            <a href="#" class="linkedin"><i class="ti-linkedin"></i></a>
-                        </div>
-
-                    </div>
-                    <div class="col-lg-2 col-md-6 footer-contact">
-                        <h4 class="mt-3 mb-3">Phone Number</h4>
-                        <p>0965528JQK</p>
-                    </div>
-                    <div class="col-lg-2 col-md-6 footer-contact">
-                        <h4 class="mt-3 mb-3">Email</h4>
-                        <p>vuddph14036@fpt.edu.vn</p>
-                    </div>
-                    <!-- 
-                  <div class="col-lg-3 col-md-6 footer-newsletter">
-                    <h4>Our Newsletter</h4>
-                    <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna veniam enim veniam illum dolore
-                      legam minim quorum culpa amet magna export quem marada parida nodela caramase seza.</p>
-                    <form action="" method="post">
-                      <input type="email" name="email"><input type="submit" value="Subscribe">
-                    </form>
-                  </div> -->
-
-                </div>
-            </div>
+          </section>
         </div>
-
-        <div class="container">
-            <div class="copyright">
-                &copy; <strong>FPT-Polytechnic </strong>
-            </div>
-            <div class="credits">
-                <!--
-                  All the links in the footer should remain intact.
-                  You can delete the links only if you purchased the pro version.
-                  Licensing information: https://bootstrapmade.com/license/
-                  Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=BizPage
-                -->
-                Họ và Tên: Đặng Đình Vũ <a href="#">https://www.facebook.com/</a>
-            </div>
-        </div>
-    </footer><!-- #footer -->
-    <!-- Bootstrap -->
-    <script src="../js/jquery.min.js"></script>
-    <script src="../js/popper.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-</body>
-
-</html>
+      </div>
+    </section>
+  </main>
+</div>

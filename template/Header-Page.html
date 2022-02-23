@@ -1,0 +1,483 @@
+<div ng-controller="myCtrl">
+  <header id="header">
+    <nav class="row navbar navbar-expand-md navbar-light" id="logo">
+      <div class="col-lg-4">
+        <div class="row">
+          <div class="col-10">
+            <a class="navbar-brand logo" href="#!homePage">
+              <img
+                src="https://media3.giphy.com/media/iWmt9h73Zodgq0DcGY/giphy.gif?cid=6c09b95283zfbpzcemxy9v86wl1amswj13m2vejy7hcmyh17&rid=giphy.gif&ct=s"
+                alt=""
+                style="width: 20%"
+              />
+            </a>
+          </div>
+          <span class="mt-2 col-2">
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#collapsibleNavId"
+              aria-controls="collapsibleNavId"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          </span>
+        </div>
+      </div>
+      <div
+        class="col-lg-7 collapse navbar-collapse text-center"
+        id="collapsibleNavId"
+        style="background-color: rgba(0, 0, 0, 0.5)"
+      >
+        <ul class="nav-menu navbar-nav mr-auto mt-lg-2">
+          <li class="nav-item">
+            <a class="nav-link" href="#!homePage">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#!list-exam">Learning</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#!about">About Page</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#!feedback">Feedback</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#!Contact">Contact </a>
+          </li>
+        </ul>
+        <div class="col-lg-4">
+          <ul class="nav-menu navbar-nav mr-auto mt-lg-0">
+            <li class="nav-item dropdown">
+              <button
+                class="btn btn-default nav-link dropdown-toggle"
+                href="#"
+                id="dropdownId"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Account
+                <i class="bi bi-person icon-account">
+                  <span class="text-danger font-italic" style="font-size: 10px"
+                    >{{(student == null) ? '' : student.fullname}}</span
+                  >
+                </i>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownId">
+                <li
+                  class="dropdown-item"
+                  data-toggle="modal"
+                  data-target="#elegantModalForm"
+                  ng-show="student == null"
+                >
+                  <a href="">Sig in</a>
+                </li>
+                <li class="dropdown-item"ng-show="student == null" >
+                  <a href="#!learning">Register</a>
+                </li>
+                <li class="dropdown-item" ng-hide="student == null">
+                  <a href="#!profile">Profile</a>
+                </li>
+                <li class="dropdown-item" ng-hide="student == null || student.role == 0">
+                  <a href="#!history">History</a>
+                </li>
+                <li class="dropdown-item" ng-hide="student == null || student.role == 1">
+                  <a href="#!administration">User Administration</a>
+                </li>
+                <div class="dropdown-divider"></div>
+                <li
+                  class="dropdown-item"
+                  data-toggle="modal"
+                  data-target="#modalChangePassword"
+                  ng-hide="student == null"
+                >
+                  <a href="">Change Password</a>
+                </li>
+                <li class="dropdown-item" ng-click="logout()" ng-hide="student == null">
+                  <a href="#">Log out</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <section>
+    <div
+      class="modal fade"
+      id="elegantModalForm"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="myModalLabel"
+      aria-hidden="true"
+      ng-controller="sigin_ctrl"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content form-elegant">
+          <div class="modal-header text-center bg-info">
+            <h3
+              class="modal-title w-100 text-dark font-weight-bold my-3"
+              id="myModalLabel"
+            >
+              <strong
+                >Sign in
+                <img src="../img/imagePic/iconloading.gif" alt="" width="10%" />
+              </strong>
+            </h3>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form class="modal-body mx-4" action="#" name="formSIn">
+            <div class="md-form mb-5">
+              <div class="form-group">
+                <label for="username">Enter User:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="username"
+                  id="username"
+                  aria-describedby="helpId"
+                  placeholder=""
+                  ng-model="username"
+                  ng-model-options="{updateOn: 'default', debounce: 500}"
+                  autocomplete="off"
+                  required
+                />
+                <div
+                  ng-hide="formSIn.username.$untouched || formSIn.username.$valid"
+                >
+                  <small
+                    id="helpId"
+                    class="form-text"
+                    ng-show="formSIn.username.$error.required"
+                  >
+                    Không được bỏ trống
+                  </small>
+                </div>
+              </div>
+            </div>
+            <div class="md-form pb-3">
+              <div class="form-group">
+                <label for="password">Enter Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  name="password"
+                  id="password"
+                  aria-describedby="helpId"
+                  placeholder=""
+                  ng-model="password"
+                  ng-model-options="{updateOn: 'default', debounce: 500}"
+                  autocomplete="off"
+                  required
+                />
+                <div
+                  ng-hide="formSIn.password.$untouched || formSIn.password.$valid"
+                >
+                  <small
+                    id="helpId"
+                    class="form-text"
+                    ng-show="formSIn.password.$error.required"
+                  >
+                    Không được bỏ trống
+                  </small>
+                </div>
+              </div>
+            </div>
+
+            <div class="text-center mb-3">
+              <button
+                type=""
+                class="btn btn-info btn-block btn-rounded z-depth-1a"
+                ng-click="login()"
+                data-dismiss="modal"
+                ng-disabled="formSIn.$invalid"
+              >
+                Sign in
+              </button>
+            </div>
+            <p
+              class="font-small text-dark d-flex justify-content-center mb-3 pt-2"
+            >
+              or Sign in with:
+            </p>
+
+            <div class="row my-3 d-flex justify-content-center">
+              <button
+                type="button"
+                class="btn btn-outline-warning ml-3 btn-rounded mr-md-3 z-depth-1a"
+              >
+                <i class="bi bi-facebook"></i>
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-warning ml-3 btn-rounded mr-md-3 z-depth-1a"
+              >
+                <i class="bi bi-twitter"></i>
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-warning ml-3 btn-rounded z-depth-1a"
+              >
+                <i class="bi bi-google"></i>
+              </button>
+            </div>
+          </form>
+          <div class="modal-footer mx-5 pt-3 mb-1">
+            <p class="font-small grey-text d-flex justify-content-end">
+              Not a member?
+              <a
+                href="#"
+                class="blue-text ml-1"
+                data-toggle="modal"
+                data-target="#modalRegisterForm"
+                data-dismiss="modal"
+                ng-disabled="formSIn.$invalid"
+              >
+                Sign Up</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+      aria-hidden="true" ng-controller="sigup_ctrl">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center bg-info">
+            <h4 class="modal-title w-100 font-weight-bold text-light">
+              Sign up
+              <img src="../img/imagePic/iconloading.gif" alt="" width="10%" />
+            </h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form class="modal-body mx-3" action="#" name="formSup">
+            <div class="md-form mb-5 lead">
+              <i class="bi bi-person-fill"></i>
+              <label data-error="wrong" data-success="right" for="orangeForm-name">Your name</label>
+              <input type="text" name="username" id="orangeForm-name" class="form-control " ng-model="account.username"
+                ng-model-options="{updateOn: 'default', debounce: 500}" autocomplete="off" required />
+              <div ng-hide="formSup.username.$untouched || formSup.username.$valid">
+                <small id="helpId" class="form-text" ng-show="formSup.username.$error.required">
+                  Không được bỏ trống
+                </small>
+              </div>
+            </div>
+            <div class="md-form mb-5 lead">
+              <i class="ti-email"></i>
+              <label data-error="wrong" data-success="right" for="orangeForm-email">Your email</label>
+              <input type="email" name="email" id="orangeForm-email" class="form-control validate"
+                ng-model="account.email" ng-model-options="{updateOn: 'default', debounce: 500}" autocomplete="off"
+                required />
+              <div ng-hide="formSup.email.$untouched || formSup.email.$valid">
+                <small id="helpId" class="form-text" ng-show="formSup.email.$error.required">
+                  Không được bỏ trống
+                </small>
+              </div>
+            </div>
+
+            <div class="md-form mb-4 lead">
+              <i class="ti-lock"></i>
+              <label data-error="wrong" data-success="right" for="orangeForm-pass">Your password</label>
+              <input type="password" name="password" id="orangeForm-pass" class="form-control validate"
+                ng-model="account.password" ng-model-options="{updateOn: 'default', debounce: 500}" autocomplete="off"
+                required />
+              <div ng-hide="formSup.password.$untouched || formSup.password.$valid">
+                <small id="helpId" class="form-text" ng-show="formSup.password.$error.required">
+                  Không được bỏ trống
+                </small>
+              </div>
+            </div>
+
+            <div class="md-form mb-4 lead">
+              <i class="ti-lock"></i>
+              <label data-error="wrong" data-success="right" for="orangeForm-pass">Confirm password</label>
+              <input type="password" name="Cfpassword" id="orangeForm-pass" class="form-control validate"
+                ng-model="Cfpassword" ng-model-options="{updateOn: 'default', debounce: 500}" autocomplete="off"
+                required />
+              <div ng-hide="formSup.Cfpassword.$untouched || formSup.Cfpassword.$valid">
+                <small id="helpId" class="form-text" ng-show="formSup.Cfpassword.$error.required">
+                  Không được bỏ trống
+                </small>
+              </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+              <button class="btn btn-outline-warning btn-block" ng-click="sigup()">Sign up</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div> -->
+
+    <div
+      class="modal fade"
+      id="modalChangePassword"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="myModalLabel"
+      aria-hidden="true"
+      ng-controller="changePassword"
+    >
+
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center bg-info">
+            <h4 class="modal-title w-100 font-weight-bold text-light">
+              Change Password
+              <img src="../img/imagePic/iconloading.gif" alt="" width="10%" />
+            </h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form class="modal-body mx-3" action="" name="myForm">
+            <div class="md-form mb-5 lead">
+              <i class="bi bi-person-fill"></i>
+              <label data-error="wrong" data-success="right" for="password-old"
+                >Password old</label
+              >
+              <input
+                type="text"
+                id="password-old"
+                name="passwordOld"
+                class="form-control validate"
+                autocomplete="off"
+                required
+                ng-model="studentC.passwordOld"
+                ng-minlength="7"
+                ng-maxlength="16"
+              />
+              <div
+                ng-hide="myForm.passwordOld.$untouched || myForm.passwordOld.$valid"
+              >
+                <small
+                  id="helpId"
+                  class="form-text"
+                  ng-show="myForm.passwordOld.$error.required"
+                >
+                  Không được bỏ trống
+                </small>
+                <small
+                  id="helpId"
+                  class="form-text"
+                  ng-show="myForm.passwordOld.$error.minlength"
+                >
+                  Mật khẩu phải 7 đến 16 ký tự!!!
+                </small>
+              </div>
+            </div>
+            <div class="md-form mb-5 lead">
+              <i class="ti-email"></i>
+              <label data-error="wrong" data-success="right" for="passwordNew"
+                >Password new</label
+              >
+              <input
+                type="password"
+                id="passwordNew"
+                class="form-control validate"
+                required
+                autocomplete="off"
+                name="passwordNew"
+                ng-model="studentC.password"
+                ng-minlength="7"
+                ng-maxlength="16"
+                ng-pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/"
+              />
+              <div
+                ng-hide="myForm.passwordNew.$untouched || myForm.passwordNew.$valid"
+              >
+                <small
+                  id="helpId"
+                  class="form-text"
+                  ng-show="myForm.passwordNew.$error.required"
+                >
+                  Không được bỏ trống
+                </small>
+                <small
+                  id="helpId"
+                  class="form-text"
+                  ng-show="myForm.passwordNew.$error.minlength"
+                >
+                  Mật khẩu phải 7 đến 16 ký tự!!!
+                </small>
+                <small
+                  id="helpId"
+                  class="form-text"
+                  ng-show="myForm.passwordNew.$error.pattern"
+                >
+                  Mật khẩu phải chứa ít nhất 1 chữ ghi Hoa!!
+                </small>
+              </div>
+            </div>
+
+            <div class="md-form mb-4 lead">
+              <i class="ti-lock"></i>
+              <label
+                data-error="wrong"
+                data-success="right"
+                for="donfirm-Password"
+                >Confirm Password</label
+              >
+              <input
+                type="password"
+                id="donfirm-Password"
+                class="form-control validate"
+                name="rePassword"
+                ng-model="rePassword"
+                autocomplete="off"
+                required
+                data-password-verify="studentC.password"
+              />
+              <div
+                ng-hide="myForm.rePassword.$untouched || myForm.rePassword.$valid"
+              >
+                <small
+                  id="helpId"
+                  class="form-text"
+                  ng-show="myForm.rePassword.$error.required"
+                >
+                  Không được bỏ trống
+                </small>
+                <small ng-show="myForm.rePassword.$error.passwordVerify">
+                  Mật khẩu không khớp!!!
+                </small>
+              </div>
+            </div>
+            
+            <div class="modal-footer d-flex justify-content-center">
+              <button
+                class="btn btn-outline-warning btn-block"
+                ng-click="changePassword()"
+                data-dismiss="modal"
+                ng-disabled="myForm.$invalid"
+              >
+                Change Password
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

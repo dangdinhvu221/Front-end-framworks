@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  </head>
+
+  <body ng-app="myApp">
+    <div ng-controller="Ctrl">
+      <form name="form">
+        <div class="form-group">
+          <label for="cD">Họ và tên:</label>
+          <input
+            ng-model="fullName"
+            type="text"
+            name="fullName"
+            id="cD"
+            class="form-control"
+            placeholder=""
+            required
+            autocomplete="off"
+            ng-model-options="{updateOn: 'default', debounce: 500}"
+          />
+          <div
+            ng-hide="formSV.fullName.$untouched || formSv.fullName.$valid"
+            class="text-danger"
+          >
+            <small ng-show="formSV.fullName.$error.required"
+              >Không được để trống</small
+            >
+          </div>
+        </div>
+
+        <button ng-disabled="" ng-click="save()" type="submit"
+                            class="btn btn-primary">Lưu</button>
+      </form>
+      <table class="table table-light">
+        <thead class="thead-light">
+          <tr>
+            <th>Họ và tên</th>
+            <th>Ngày sinh</th>
+            <th>Điểm</th>
+            <th>Học lực</th>
+            <th>Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="student in historys">
+            <td>{{student.id}}</td>
+            <td>{{student.idExam}}</td>
+            <td>{{student.mark}}</td>
+            <td>{{student.fullName}}</td>
+
+            <td>
+              <span ng-if="student.mark < 5">Yeu || Kém</span>
+              <span ng-if="student.mark >= 5 && student.mark <= 8"
+                >Khá || Giỏi</span
+              >
+              <span ng-if="student.mark  > 8">Giỏi || Xuất sắc</span>
+            </td>
+            <td><a href="#" ng-click="edit($index)">Edit</a></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th colspan="5" class="text-center">Fpt-Polytechnic</th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <script>
+      var app = angular.module("myApp", []);
+      app.controller("Ctrl", function ($scope, $rootScope) {
+        $rootScope.historys = [];
+        $rootScope.history = {};
+        $rootScope.save = function () {
+          
+          $rootScope.history.id = 1;
+          $rootScope.history.idExam = 2;
+          $rootScope.history.nameExam = 3;
+          $rootScope.history.mark = 4;
+
+          $rootScope.historys.push(angular.copy($rootScope.history));
+          console.log($rootScope.historys);
+        };
+      });
+    </script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

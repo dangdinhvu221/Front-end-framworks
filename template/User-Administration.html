@@ -1,0 +1,280 @@
+<div ng-controller="administrationCtrl">
+  <!----------------------------------------  main-------------------------------------- -->
+  <main id="main">
+    <section id="intro">
+      <div class="about-page">
+        <div class="row">
+          <div class="container bg-white rounded shadow mt-5 p-4">
+            <h1 class="text-center">User Administration</h1>
+            <div class="row">
+              <form
+                action=""
+                ng-submit="onSubmitForm($event)"
+                name="formAdministration"
+                class="font-weight-bold"
+              >
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label for="username">Username:</label>
+                    <input
+                      ng-model="student.username"
+                      type="text"
+                      class="form-control"
+                      name="username"
+                      id="username"
+                      aria-describedby="helpId"
+                      placeholder=""
+                      required
+                    />
+                    <div
+                      ng-hide="formAdministration.username.$untouched || formAdministration.username.$valid"
+                    >
+                      <small
+                        ng-show="formAdministration.username.$error.required"
+                        class=""
+                      >
+                        Không được để trống
+                      </small>
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="password">Password:</label>
+                    <input
+                      ng-model="student.password"
+                      type="password"
+                      class="form-control"
+                      name="password"
+                      id="password"
+                      aria-describedby="helpId"
+                      placeholder=""
+                      required
+                    />
+                    <div
+                      ng-hide="formAdministration.password.$untouched || formAdministration.password.$valid"
+                    >
+                      <small
+                        ng-show="formAdministration.password.$error.required"
+                        class=""
+                      >
+                        Không được để trống
+                      </small>
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="email">Email:</label>
+                    <input
+                      ng-model="student.email"
+                      type="text"
+                      class="form-control"
+                      name="email"
+                      id="email"
+                      aria-describedby="helpId"
+                      placeholder=""
+                      required
+                    />
+                    <div
+                      ng-hide="formAdministration.email.$untouched || formAdministration.email.$valid"
+                    >
+                      <small
+                        ng-show="formAdministration.email.$error.required"
+                        class=""
+                      >
+                        Không được để trống
+                      </small>
+                      <small ng-show="formAdministration.email.$error.email" class="">
+                        Không đúng định dạng
+                      </small>
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="birthday">Birthday:</label>
+                    <input
+                      ng-model="student.birthday"
+                      type="text"
+                      class="form-control"
+                      name="birthday"
+                      id="birthday"
+                      aria-describedby="helpId"
+                      placeholder=""
+                      required
+                      pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
+                    />
+
+                    <div
+                      ng-hide="formAdministration.birthday.$untouched || formAdministration.birthday.$valid"
+                    >
+                      <small
+                        ng-show="formAdministration.birthday.$error.required"
+                        class=""
+                      >
+                        Không được để trống
+                      </small>
+                      <small
+                        ng-show="formAdministration.birthday.$error.pattern"
+                        class=""
+                      >
+                        Không đúng định dạng
+                      </small>
+                    </div>
+                  </div>
+                  <div class="form-group col-md-12">
+                    <label for="schoolfee">Schoolfee:</label>
+                    <input
+                      ng-model="student.schoolfee"
+                      type="text"
+                      class="form-control"
+                      name="schoolfee"
+                      id="schoolfee"
+                      aria-describedby="helpId"
+                      placeholder=""
+                      required
+                    />
+                    <div
+                      ng-hide="formAdministration.schoolfee.$untouched || formAdministration.schoolfee.$valid"
+                    >
+                      <small
+                        ng-show="formAdministration.schoolfee.$error.required"
+                        class=""
+                      >
+                        Không được để trống
+                      </small>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="exampleFormControlInput1" class="form-label"
+                      >Gender:</label
+                    >
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="gender"
+                        id="gender1"
+                        ng-model="student.gender"
+                        value="true"
+                        ng-checked="{{student.gender == 'true'?true:false}}"
+                      />
+                      <label class="form-check-label" for="gender1">
+                        Nam
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="gender"
+                        id="gender2"
+                        ng-model="student.gender"
+                        value="false"
+                        ng-checked="{{student.gender == 'false'?true:false}}"
+                      />
+                      <label class="form-check-label" for="gender2"> Nữ </label>
+                    </div>
+                  </div>
+                  <div class="">
+                    <label for="exampleFormControlInput1" class="form-label"
+                      >Role:</label
+                    >
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="role"
+                        id="role1"
+                        ng-model="student.role"
+                        value="0"
+                        ng-checked="{{student.role == '0'?true:false}}"
+                      />
+                      <label class="form-check-label" for="role1">
+                        Quản lý
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="role"
+                        id="role2"
+                        ng-model="student.role"
+                        value="1"
+                      />
+                      <label class="form-check-label" for="role2">
+                        Người dùng
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mt-3 mb-0">
+                  <button
+                    ng-disabled=""
+                    ng-click="save()"
+                    type="submit"
+                    class="btn btn-block btn-outline-primary"
+                  >
+                    Cập nhật
+                  </button>
+                  <button
+                    ng-disabled=""
+                    ng-click="clear()"
+                    type="reset"
+                    class="btn btn-block btn-outline-success"
+                  >
+                    Huỷ
+                  </button>
+                </div>
+              </form>
+              <table
+                class="table table-striped table-bordered table-hover table-primary text-center mt-5"
+              >
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>Email</th>
+                    <th>Gender</th>
+                    <th>Birthday</th>
+                    <th>schoolfee</th>
+                    <th>role</th>
+                    <th colspan="2">Manipulation</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="st in students">
+                    <td>{{st.id}}</td>
+                    <td>{{st.username}}</td>
+                    <td>{{st.password}}</td>
+                    <td>{{st.email}}</td>
+                    <td>{{st.gender == 'true' ? "Nam" : "Nữ"}}</td>
+                    <td>{{st.birthday}}</td>
+                    <td>{{st.schoolfee}}</td>
+                    <td>{{st.role == 0 ? 'Quản lý' : 'Người dùng'}}</td>
+                    <td>
+                      <button
+                        type="button"
+                        class="btn btn-block btn-success"
+                        ng-click="edit($index)"
+                      >
+                        Edit
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        ng-disabled=""
+                        ng-click="onDelete($index)"
+                        type="submit"
+                        class="btn btn-block btn-outline-danger"
+                      >
+                        Xoá
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
