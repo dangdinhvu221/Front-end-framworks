@@ -15,12 +15,14 @@ app.controller("myCtrl", function ($scope, $rootScope, $location) {
       allowOutsideClick: false,
       timer: 1600,
     });
+    localStorage.clear();
     window.location.href = "#!homePage";
   };
 });
 
 app.run(function ($rootScope, $http, $timeout) {
-  $http.get("../db/Subjects.js").then(function (response) {
+  const apiSubject = 'https://62138df189fad53b1ff8d6aa.mockapi.io/subjects'
+  $http.get(apiSubject).then(function (response) {
     $rootScope.Subjects = response.data;
   });
 
@@ -29,11 +31,6 @@ app.run(function ($rootScope, $http, $timeout) {
     $rootScope.students = response.data;
     // console.log(response);
   });
-
-  const apiExam = "https://62138df189fad53b1ff8d6aa.mockapi.io/historyExam";
-  $http.get(apiExam).then(function (response) {
-      $rootScope.historys = response.data;
-  })
   $rootScope.student = null;
 });
 
@@ -42,18 +39,18 @@ app.config(function ($routeProvider, $locationProvider) {
     .when("/homePage", { templateUrl: "../template/index.html" })
     .when("/about", { templateUrl: "../template/about.html" })
     .when("/feedback", { templateUrl: "../template/feedback.html" })
-    .when("/information/:id", {
-      templateUrl: "../template/informationExam.html",
-    })
+    .when("/information/:id", { templateUrl: "../template/informationExam.html",})
     .when("/learning", { templateUrl: "../template/learning.html" })
     .when("/list-exam", { templateUrl: "../template/list-exam.html" })
     .when("/listQuestion/:id", { templateUrl: "../template/listQuestion.html" })
     .when("/Contact", { templateUrl: "../template/Contact.html" })
     .when("/profile", { templateUrl: "../template/profile.html" })
     .when("/history", { templateUrl: "../template/history.html" })
-    .when("/administration", {
-      templateUrl: "../template/User-Administration.html",
-    })
+    .when("/administration", { templateUrl: "../template/User-Administration.html"})
+    .when("/subjectAdministration", { templateUrl: "../template/subject-administration.html"})
+    .when("/quizzAdministration", { templateUrl: "../template/quizz-administration.html"})
+
+
     .otherwise({ redirectTo: "/list-exam" });
 });
 

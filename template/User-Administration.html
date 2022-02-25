@@ -152,7 +152,7 @@
                         id="gender1"
                         ng-model="student.gender"
                         value="true"
-                        ng-checked="{{student.gender == 'true'?true:false}}"
+                        ng-checked="student.gender == 'true'"
                       />
                       <label class="form-check-label" for="gender1">
                         Nam
@@ -166,7 +166,7 @@
                         id="gender2"
                         ng-model="student.gender"
                         value="false"
-                        ng-checked="{{student.gender == 'false'?true:false}}"
+                        ng-checked="student.gender != 'true'"
                       />
                       <label class="form-check-label" for="gender2"> Nữ </label>
                     </div>
@@ -183,7 +183,7 @@
                         id="role1"
                         ng-model="student.role"
                         value="0"
-                        ng-checked="{{student.role == '0'?true:false}}"
+                        ng-checked="student.role == 0"
                       />
                       <label class="form-check-label" for="role1">
                         Quản lý
@@ -196,6 +196,7 @@
                         name="role"
                         id="role2"
                         ng-model="student.role"
+                        ng-checked="student.role != 0"
                         value="1"
                       />
                       <label class="form-check-label" for="role2">
@@ -240,7 +241,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr ng-repeat="st in students">
+                  <tr ng-repeat="st in list_students">
                     <td>{{st.id}}</td>
                     <td>{{st.username}}</td>
                     <td>{{st.password}}</td>

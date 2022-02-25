@@ -1,16 +1,7 @@
 app.controller("register_ctrl", function ($scope, $http, $rootScope) {
   $scope.register = function () {
-
-    const api = "https://62138df189fad53b1ff8d6aa.mockapi.io/Students";
-    $http.post(api, $scope.accountRegister).then(function (response) {
-      $scope.students.push(response.data);
-      $scope.student.id = response.data.id;
-      console.log(response);
-    });
-
-    $scope.accountRegister.role = 1;
-    $rootScope.students.push(angular.copy($scope.accountRegister));
     
+
     console.log($scope.accountRegister);
     if ($scope.accountRegister != null) {
       Swal.fire({
@@ -21,6 +12,15 @@ app.controller("register_ctrl", function ($scope, $http, $rootScope) {
         closeOnClickOutside: false,
         allowOutsideClick: false,
         timer: 1600,
+      });
+
+      $scope.accountRegister.role = 1;
+      // $rootScope.students.push(angular.copy($scope.accountRegister));
+      const api = "https://62138df189fad53b1ff8d6aa.mockapi.io/Students";
+      $http.post(api, $scope.accountRegister).then(function (response) {
+        $scope.students.push(response.data);
+        $scope.student.id = response.data.id;
+        console.log($scope.students);
       });
       window.location.href = "#!list-exam";
     } else {

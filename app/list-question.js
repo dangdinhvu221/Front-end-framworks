@@ -11,7 +11,6 @@ app.controller(
     $http.get("../db/Quizs/" + $routeParams.id + ".js").then((response) => {
       $scope.questions = response.data;
     });
-
     $scope.testMark = 0;
     $scope.indexQuestion = 0;
     $scope.timer = 900;
@@ -94,19 +93,24 @@ app.controller(
                 `,
           });
 
-          $rootScope.history.id = $rootScope.student.id;
           $rootScope.history.idExam = $scope.subject.Id;
           $rootScope.history.nameExam = $scope.subject.Name;
           $rootScope.history.mark = $scope.testMark;
-          
-          const api = "https://62138df189fad53b1ff8d6aa.mockapi.io/historyExam";
-          $http.post(api, $scope.history).then(function (response) {
-            $rootScope.historys.unshift(response.data);
-            $scope.history.id = response.data.id;
+          $rootScope.history.idUser = $rootScope.student.id;
+          const apiExam =
+            "https://62138df189fad53b1ff8d6aa.mockapi.io/historyExam";
+
+          // $rootScope.students.forEach((item) => {
+          //   if (item.id == $rootScope.history.idUser) {
+          $http.post(apiExam, $rootScope.history).then(function (response) {
+            $rootScope.historys.push(response.data);
+            console.log($rootScope.historys);
+            //   });
+            // }
           });
+          
           // $rootScope.historys.unshift(angular.copy($rootScope.history));
 
-          console.log($rootScope.historys);
           window.location.href = "#!information/" + $scope.subject.Id;
         }
       });
