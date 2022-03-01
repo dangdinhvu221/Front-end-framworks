@@ -248,7 +248,7 @@
                     <td>{{st.email}}</td>
                     <td>{{st.gender == 'true' ? "Nam" : "Nữ"}}</td>
                     <td>{{st.birthday}}</td>
-                    <td>{{st.schoolfee}}</td>
+                    <td>{{st.schoolfee | number : 3}} VNĐ</td>
                     <td>{{st.role == 0 ? 'Quản lý' : 'Người dùng'}}</td>
                     <td>
                       <button

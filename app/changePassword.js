@@ -6,7 +6,7 @@ app.controller("changePassword", function ($scope, $rootScope, $http) {
         title: "Bạn chưa đăng nhập!!!",
         text: "Quay lại trang chủ !",
       });
-      window.location.href = "#!list-exam";
+      document.location = "#!list-exam";
     } else {
       if ($rootScope.student.password == $scope.studentC.passwordOld) {
         if ($rootScope.student.password == $scope.studentC.password) {
@@ -32,7 +32,7 @@ app.controller("changePassword", function ($scope, $rootScope, $http) {
             icon: "success",
           }).then((res) => {
             if (res.value) {
-              window.location.href = "#!ListTest";
+              document.location = "#!ListTest";
             }
           });
         }

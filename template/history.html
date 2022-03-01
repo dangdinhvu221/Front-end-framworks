@@ -11,15 +11,19 @@
                 <thead>
                   <tr>
                     <th>ID</th>
+                    <th>Ngày</th>
                     <th>Môn học</th>
                     <th>Điểm</th>
+                    <!-- <th>Thời gian</th> -->
                   </tr>
                 </thead>
                 <tbody>
                   <tr ng-repeat="st in historyUser">
                     <td>{{st.idExam}}</td>
+                    <td>{{st.Date}}</td>
                     <td>{{st.nameExam}}</td>
                     <td>{{st.mark}}</td>
+                    <!-- <td>{{st.Time}}</td> -->
                   </tr>
                 </tbody>
               </table>

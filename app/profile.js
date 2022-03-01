@@ -21,6 +21,6 @@ app.controller("ProfileController", function ($scope, $rootScope, $http) {
       allowOutsideClick: false,
       timer: 1600,
     });
-    window.location.href = "#!list-exam";
+    document.location = "#!list-exam";
   };
 });

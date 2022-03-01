@@ -1,16 +1,19 @@
 app.controller(
   "listQuestionCtrl",
   function ($scope, $http, $rootScope, $routeParams, $interval) {
+
     $rootScope.Subjects.forEach((item) => {
-      if (item.Id == $routeParams.id) {
+      if (item.Id == $routeParams.id || item.Id == $rootScope.valueSubject) {
         $scope.subject = angular.copy(item);
         return;
       }
     });
 
+    const api = "https://62138df189fad53b1ff8d6aa.mockapi.io/quizz";
     $http.get("../db/Quizs/" + $routeParams.id + ".js").then((response) => {
       $scope.questions = response.data;
     });
+
     $scope.testMark = 0;
     $scope.indexQuestion = 0;
     $scope.timer = 900;
@@ -61,6 +64,7 @@ app.controller(
     };
 
     $scope.finish = function () {
+
       Swal.fire({
         title: "Cảnh báo!!!",
         text: "Bạn có muốn kết thúc bài thi không?",
@@ -80,6 +84,7 @@ app.controller(
         if (res.value) {
           Swal.fire({
             title: "Kết thúc bài thi",
+            text: "Quay lại khoá học",
             icon: "success",
             showCancelButton: false,
             closeOnClickOutside: false,
@@ -93,25 +98,20 @@ app.controller(
                 `,
           });
 
+          var today = new Date();
+          $rootScope.history.Date = today.getDate() +" - " +(today.getMonth() + 1) +" - " +today.getFullYear();
           $rootScope.history.idExam = $scope.subject.Id;
           $rootScope.history.nameExam = $scope.subject.Name;
           $rootScope.history.mark = $scope.testMark;
           $rootScope.history.idUser = $rootScope.student.id;
           const apiExam =
             "https://62138df189fad53b1ff8d6aa.mockapi.io/historyExam";
-
-          // $rootScope.students.forEach((item) => {
-          //   if (item.id == $rootScope.history.idUser) {
           $http.post(apiExam, $rootScope.history).then(function (response) {
             $rootScope.historys.push(response.data);
             console.log($rootScope.historys);
-            //   });
-            // }
           });
-          
-          // $rootScope.historys.unshift(angular.copy($rootScope.history));
 
-          window.location.href = "#!information/" + $scope.subject.Id;
+          document.location = "#!information/" + $scope.subject.Id;
         }
       });
     };
@@ -129,7 +129,7 @@ app.controller(
         $rootScope.history.nameExam = $scope.subject.Name;
         $rootScope.history.mark = $scope.testMark;
         $rootScope.historys.unshift(angular.copy($rootScope.history));
-        window.location.href = "#!information/" + $scope.subject.Id;
+        document.location = "#!information/" + $scope.subject.Id;
         $interval.cancel(stop);
       }
     }, 1000);

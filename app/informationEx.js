@@ -40,7 +40,7 @@ app.controller("informationEx", function ($scope, $rootScope, $routeParams) {
             `,
       }).then((response) => {
         if (response.value) {
-          window.location.href = "#!listQuestion/" + $scope.subject.Id;
+          document.location = "#!listQuestion/" + $scope.subject.Id;
         }
         console.log(response);
       });

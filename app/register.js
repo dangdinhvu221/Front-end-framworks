@@ -22,7 +22,7 @@ app.controller("register_ctrl", function ($scope, $http, $rootScope) {
         $scope.student.id = response.data.id;
         console.log($scope.students);
       });
-      window.location.href = "#!list-exam";
+      document.location = "#!list-exam";
     } else {
       Swal.fire({
         icon: "error",

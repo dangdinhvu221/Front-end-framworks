@@ -1,10 +1,6 @@
 app.controller("sigin_ctrl", function ($scope, $rootScope) {
   $rootScope.historys = [];
   $rootScope.history = {};
-  var username = sessionStorage.getItem("username");
-  var password = sessionStorage.getItem("password");
-  if (username != "") $rootScope.username = username;
-  if (password != "") $rootScope.password = password;
 
   $scope.login = function () {
     var index = true;
@@ -31,14 +27,13 @@ app.controller("sigin_ctrl", function ($scope, $rootScope) {
             timer: 1600,
           });
         }
-        sessionStorage.setItem("username", st.username);
-        sessionStorage.setItem("password", st.password);
+        localStorage.setItem('users', JSON.stringify(st))
 
         $rootScope.student = st;
         console.log(st);
         $rootScope.indexStudent = st.index;
         console.log($rootScope.indexStudent);
-        window.location.href = "#!list-exam";
+        document.location = "#!list-exam";
         index = false;
         return;
       }

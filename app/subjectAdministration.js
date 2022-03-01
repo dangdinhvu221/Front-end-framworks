@@ -65,7 +65,6 @@ app.controller(
           $scope.clear();
         });
       }
-      // $rootScope.Subjects.unshift(angular.copy($scope.subject));
     };
 
     $scope.onDelete = function (index) {

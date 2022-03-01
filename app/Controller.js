@@ -2,22 +2,7 @@ var app = angular.module("myApp", ["ngRoute"]);
 
 
 app.controller("myCtrl", function ($scope, $rootScope, $location) {
-  $scope.logout = function () {
-    $rootScope.student = null;
-    $rootScope.password = null;
-    $rootScope.indexStudent = -1;
-    Swal.fire({
-      icon: "warning",
-      title: "Đăng xuất thành công !",
-      text: "Quay lại trang chủ!",
-      showConfirmButton: false,
-      closeOnClickOutside: false,
-      allowOutsideClick: false,
-      timer: 1600,
-    });
-    localStorage.clear();
-    window.location.href = "#!homePage";
-  };
+  
 });
 
 app.run(function ($rootScope, $http, $timeout) {
@@ -31,7 +16,25 @@ app.run(function ($rootScope, $http, $timeout) {
     $rootScope.students = response.data;
     // console.log(response);
   });
-  $rootScope.student = null;
+
+  $rootScope.student = JSON.parse(localStorage.getItem('users'));
+  
+  $rootScope.logout = function () {
+    $rootScope.student = null;
+    $rootScope.password = null;
+    $rootScope.indexStudent = -1;
+    Swal.fire({
+      icon: "warning",
+      title: "Đăng xuất thành công !",
+      text: "Quay lại trang chủ!",
+      showConfirmButton: false,
+      closeOnClickOutside: false,
+      allowOutsideClick: false,
+      timer: 1600,
+    });
+    localStorage.removeItem('users');
+  };
+
 });
 
 app.config(function ($routeProvider, $locationProvider) {
@@ -49,8 +52,7 @@ app.config(function ($routeProvider, $locationProvider) {
     .when("/administration", { templateUrl: "../template/User-Administration.html"})
     .when("/subjectAdministration", { templateUrl: "../template/subject-administration.html"})
     .when("/quizzAdministration", { templateUrl: "../template/quizz-administration.html"})
-
-
+    
     .otherwise({ redirectTo: "/list-exam" });
 });
 

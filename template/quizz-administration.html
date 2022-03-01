@@ -1,124 +1,231 @@
 <div ng-controller="quizzAdministrationCtrl">
-    <!----------------------------------------  main-------------------------------------- -->
-    <main id="main">
-        <section id="intro">
-            <div class="about-page">
-                <div class="row">
-                    <div class="container bg-white rounded shadow mt-5 p-4">
-                        <h1 class="text-center">Quiz Administration</h1>
-                        <form action="" class="font-weight-bold" ng-submit="onSubmitForm($event)" name="quizForm">
-                            <div class="form-group">
-                              <label for="nameSubject">Môn học: </label>
-                              <select ng-model="quizz.valueSubject"  class="form-control" name="nameSubject" id="nameSubject">
-                                <option ng-repeat="sub in Subjects" value="{{sub.Id}}">
-                                    {{sub.Name}}
-                                </option>
-                              </select>
-                            </div>
-                            <div class="form-group">
-                              <label for="TextQuiz">Câu hỏi: </label>
-                              <input ng-model="quizz.TextQuiz" type="text"
-                                class="form-control" name="TextQuiz" id="TextQuiz" aria-describedby="helpId" placeholder="">
-                            </div>
-                            <div class="row text-center d-flex justify-content-center">
-                                <div class="row d-inline">
-                                    <div class="form-group row ">
-                                        <label for="AnswerId1" class="col-md-5 control-label mt-2">Mã câu hỏi 1: </label>
-                                        <input ng-model="quizz.AnswerId1" type="text"
-                                          class="form-control col-md-4" name="AnswerId1" id="AnswerId1" aria-describedby="helpId" placeholder="A">
-                                    </div>
-                                    <div class="form-group row mt-3">
-                                        <label for="AnswerId2" class="col-md-5 control-label mt-2">Mã câu hỏi 2: </label>
-                                        <input ng-model="quizz.AnswerId2" type="text"
-                                          class="form-control col-md-4" name="AnswerId2" id="AnswerId2" aria-describedby="helpId" placeholder="B">
-                                    </div>
-                                    <div class="form-group row mt-3">
-                                        <label for="AnswerId3" class="col-md-5 control-label mt-2">Mã câu hỏi 3: </label>
-                                        <input ng-model="quizz.AnswerId3" type="text"
-                                          class="form-control col-md-4" name="AnswerId3" id="AnswerId3" aria-describedby="helpId" placeholder="C">
-                                    </div>
-                                    <div class="form-group row mt-3 mb-3">
-                                        <label for="AnswerId4" class="col-md-5 control-label mt-2">Mã câu hỏi 4: </label>
-                                        <input ng-model="quizz.AnswerId4" type="text"
-                                          class="form-control col-md-4" name="AnswerId4" id="AnswerId4" aria-describedby="helpId" placeholder="D">
-                                    </div>
-                                </div>
-                                <div class="row d-inline">
-                                    <div class="form-group row ">
-                                        <label for="AnswerText1" class="col-md-4 control-label mt-2">Đáp án 1: </label>
-                                        <input ng-model="quizz.AnswerText1" type="text"
-                                          class="form-control col-md-8" name="AnswerText1" id="AnswerText1" aria-describedby="helpId" placeholder="...">
-                                    </div>
-                                    <div class="form-group row mt-3">
-                                        <label for="AnswerText2" class="col-md-4 control-label mt-2">Đáp án 2: </label>
-                                        <input ng-model="quizz.AnswerText2" type="text"
-                                          class="form-control col-md-8" name="AnswerText2" id="AnswerText2" aria-describedby="helpId" placeholder="...">
-                                    </div>
-                                    <div class="form-group row mt-3">
-                                        <label for="AnswerText3" class="col-md-4 control-label mt-2">Đáp án 3: </label>
-                                        <input ng-model="quizz.AnswerText3" type="text"
-                                          class="form-control col-md-8" name="AnswerText3" id="AnswerText3" aria-describedby="helpId" placeholder="...">
-                                    </div>
-                                    <div class="form-group row mt-3 mb-3">
-                                        <label for="AnswerText4" class="col-md-4 control-label mt-2">Đáp án 4: </label>
-                                        <input ng-model="quizz.AnswerText4" type="text"
-                                          class="form-control col-md-8" name="AnswerText4" id="AnswerText4" aria-describedby="helpId" placeholder="...">
-                                    </div>
-                                </div>
-                                
-                            </div>
-                            <div class="form-group">
-                                <label for="nameSubject">Đáp án đúng: </label>
-                                <select ng-model="quizz.AnswerId"  class="form-control bg-success text-light" name="nameSubject" id="nameSubject">
-                                  <option  value="">
-                                      {{quizz.AnswerId}}
-                                  </option>
-                                </select>
-                              </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-block btn-outline-success">Save</button>
-                                <button type="button" class="btn btn-block btn-outline-warning">Cancel</button>
-                            </div>
-                        </form>
-                        <table
-                class="table table-striped table-bordered table-hover table-info text-center mt-5"
-              >
-                <thead class="text-uppercase">
-                  <tr>
-                    <th>STT</th>
-                    <th>Câu hỏi</th>
-                    <th colspan="2">Manipulation</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr ng-repeat="ques in questions">
-                    <td>{{$index + 1}}</td>
-                    <td>{{ques.Text}}</td>
-                    <td>
-                      <button
-                        type="button"
-                        class="btn btn-block btn-success"
-                        ng-click="edit($index)"
-                      >
-                        Edit
-                      </button>
-                    </td>
-                    <td>
-                      <button
-                        ng-disabled=""
-                        ng-click="onDelete($index)"
-                        type="submit"
-                        class="btn btn-block btn-outline-danger"
-                      >
-                        Xoá
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-                    </div>
+  <!----------------------------------------  main-------------------------------------- -->
+  <main id="main">
+    <section id="intro">
+      <div class="about-page">
+        <div class="row">
+          <div class="container bg-white rounded shadow mt-5 p-4">
+            <h1 class="text-center">Quiz Administration</h1>
+            <form
+              action=""
+              class="font-weight-bold"
+              ng-submit="onSubmitForm($event)"
+              name="quizForm"
+            >
+              <div class="form-group">
+                <label for="nameSubject">Môn học: </label>
+                <select
+                  ng-model="valueSubject"
+                  class="form-control"
+                  name="nameSubject"
+                  id="nameSubject"
+                  ng-change="selectBox()"
+                >
+                  <option value="" class="disabled" select>
+                    -Vui lòng chọn môn học-
+                  </option>
+                  <option ng-repeat="sub in Subjects" value="{{sub.Id}}">
+                    {{sub.Name}}
+                  </option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="TextQuiz">Câu hỏi: </label>
+                <input
+                  ng-model="TextQuiz"
+                  type="text"
+                  class="form-control"
+                  name="TextQuiz"
+                  id="TextQuiz"
+                  aria-describedby="helpId"
+                  placeholder=""
+                />
+              </div>
+              <div class="row text-center d-flex justify-content-center">
+                <div class="row d-inline">
+                  <div class="form-group row">
+                    <label for="AnswerId1" class="col-md-5 control-label mt-2"
+                      >Mã ID 1:
+                    </label>
+                    <input
+                      ng-model="AnswerId1"
+                      type="text"
+                      class="form-control col-md-4"
+                      name="AnswerId1"
+                      id="AnswerId1"
+                      aria-describedby="helpId"
+                      placeholder="..."
+                      disabled="true"
+                    />
+                  </div>
+                  <div class="form-group row mt-3">
+                    <label for="AnswerId2" class="col-md-5 control-label mt-2"
+                      >Mã ID 2:
+                    </label>
+                    <input
+                      ng-model="AnswerId2"
+                      type="text"
+                      class="form-control col-md-4"
+                      name="AnswerId2"
+                      id="AnswerId2"
+                      aria-describedby="helpId"
+                      placeholder="..."
+                      disabled="true"
+                    />
+                  </div>
+                  <div class="form-group row mt-3">
+                    <label for="AnswerId3" class="col-md-5 control-label mt-2"
+                      >Mã ID 3:
+                    </label>
+                    <input
+                      ng-model="AnswerId3"
+                      type="text"
+                      class="form-control col-md-4"
+                      name="AnswerId3"
+                      id="AnswerId3"
+                      aria-describedby="helpId"
+                      placeholder="..."
+                      disabled="true"
+                    />
+                  </div>
+                  <div class="form-group row mt-3 mb-3">
+                    <label for="AnswerId4" class="col-md-5 control-label mt-2"
+                      >Mã ID 4:
+                    </label>
+                    <input
+                      ng-model="AnswerId4"
+                      type="text"
+                      class="form-control col-md-4"
+                      name="AnswerId4"
+                      id="AnswerId4"
+                      aria-describedby="helpId"
+                      placeholder="..."
+                      disabled="true"
+                    />
+                  </div>
                 </div>
-            </div>
-        </section>
-    </main>
+                <div class="row d-inline">
+                  <div class="form-group row">
+                    <label for="AnswerText1" class="col-md-4 control-label mt-2"
+                      >Đáp án 1:
+                    </label>
+                    <input
+                      ng-model="AnswerText1"
+                      type="text"
+                      class="form-control col-md-8"
+                      name="AnswerText1"
+                      id="AnswerText1"
+                      aria-describedby="helpId"
+                      placeholder="..."
+                    />
+                  </div>
+                  <div class="form-group row mt-3">
+                    <label for="AnswerText2" class="col-md-4 control-label mt-2"
+                      >Đáp án 2:
+                    </label>
+                    <input
+                      ng-model="AnswerText2"
+                      type="text"
+                      class="form-control col-md-8"
+                      name="AnswerText2"
+                      id="AnswerText2"
+                      aria-describedby="helpId"
+                      placeholder="..."
+                    />
+                  </div>
+                  <div class="form-group row mt-3">
+                    <label for="AnswerText3" class="col-md-4 control-label mt-2"
+                      >Đáp án 3:
+                    </label>
+                    <input
+                      ng-model="AnswerText3"
+                      type="text"
+                      class="form-control col-md-8"
+                      name="AnswerText3"
+                      id="AnswerText3"
+                      aria-describedby="helpId"
+                      placeholder="..."
+                    />
+                  </div>
+                  <div class="form-group row mt-3 mb-3">
+                    <label for="AnswerText4" class="col-md-4 control-label mt-2"
+                      >Đáp án 4:
+                    </label>
+                    <input
+                      ng-model="AnswerText4"
+                      type="text"
+                      class="form-control col-md-8"
+                      name="AnswerText4"
+                      id="AnswerText4"
+                      aria-describedby="helpId"
+                      placeholder="..."
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="nameSubject">Đáp án đúng: </label>
+                <select
+                  ng-model="AnswerId"
+                  class="form-control bg-success text-light"
+                  name="nameSubject"
+                  id="nameSubject"
+                >
+                  <option value="">-Chọn kết quả đúng-</option>
+                  <option value="{{AnswerId1}}" select>{{AnswerId1}}</option>
+                  <option value="{{AnswerId2}}" select>{{AnswerId2}}</option>
+                  <option value="{{AnswerId3}}" select>{{AnswerId3}}</option>
+                  <option value="{{AnswerId4}}" select>{{AnswerId4}}</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-block btn-outline-success">
+                  Save
+                </button>
+                <button type="button" ng-click="cancel()" class="btn btn-block btn-outline-warning">
+                  Cancel
+                </button>
+              </div>
+            </form>
+            <table
+              class="table table-striped table-bordered table-hover table-info text-center mt-5"
+            >
+              <thead class="text-uppercase">
+                <tr>
+                  <th>STT</th>
+                  <th>Câu hỏi</th>
+                  <th colspan="2">Manipulation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="question in list_questions">
+                  <td>{{$index + 1}}</td>
+                  <td>{{question.Text}}</td>
+                  <td>
+                    <button
+                      type="button"
+                      class="btn btn-block btn-success"
+                      ng-click="edit($index)"
+                    >
+                      Edit
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      ng-disabled=""
+                      ng-click="onDelete($index)"
+                      type="submit"
+                      class="btn btn-block btn-outline-danger"
+                    >
+                      Xoá
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 </div>
